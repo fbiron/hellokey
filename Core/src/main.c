@@ -56,6 +56,22 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+  void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+  {
+      if (GPIO_Pin == KEY0_Pin)
+      {
+          LED0_on();
+      }
+      else if (GPIO_Pin == KEY1_Pin)
+      {
+          LED1_on();
+      }
+      else if (GPIO_Pin == KEY2_Pin)
+      {
+          LED0_off();
+          LED1_off();
+      }  
+  }
 
 /* USER CODE END 0 */
 
@@ -93,7 +109,9 @@ int main(void)
       .state = LED_STATE_OFF,
       .last_tick = 0
   };
- 
+
+
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -101,23 +119,11 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-    // LED0_on();
-    // HAL_Delay(100);
-    // LED0_off();
-    // HAL_Delay(100);
-    // LED1_on();
-    // HAL_Delay(500);
-    // LED1_off();
-    // HAL_Delay(500);
-
-    Key_Process(&led_ctrl);
-
 
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
 }
-
 /**
   * @brief System Clock Configuration
   * @retval None
@@ -175,6 +181,8 @@ void Error_Handler(void)
   }
   /* USER CODE END Error_Handler_Debug */
 }
+
+
 
 #ifdef  USE_FULL_ASSERT
 /**
